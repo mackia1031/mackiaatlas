@@ -1,0 +1,113 @@
+/* Local static replica overrides for maackiaportfolio */
+
+/* Cargo hides body until its JS boots; force everything visible */
+html, body { visibility: visible !important; }
+body { opacity: 1 !important; }
+
+/* Hide loading indicators that never resolve without Cargo JS */
+.loading, [data-loading] { display: none !important; }
+
+/* Galleries were captured already-initialized with inline positioning.
+   Guard against the "not initialized" hidden state just in case. */
+.image-gallery { visibility: visible !important; }
+.image-gallery:not(.initialized) { visibility: visible !important; min-height: 0 !important; }
+
+/* Slide-out site menu: hidden by default, toggled by site.js */
+#site_menu_panel {
+    display: none;
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: 9000;
+    background: rgba(255,255,255,0.0);
+}
+#site_menu_panel.open { display: block; }
+#site_menu_panel #site_menu {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    height: 100%;
+    box-shadow: -1px 0 0 rgba(0,0,0,0.08);
+    overflow-y: auto;
+    flex-direction: column;
+}
+#site_menu .close { cursor: pointer; display: block !important; align-self: flex-end; }
+
+/* Hamburger menu button is hidden on desktop in the original site */
+#site_menu_button { display: none !important; }
+
+/* Make image links / zoomable images show a pointer */
+.content img { max-width: 100%; }
+
+/* Backdrop layers captured empty - keep them from intercepting clicks */
+.backdrop { pointer-events: none; }
+
+/* ---- Header/footer pin containers ----
+   The original desktop site positions these as `position:absolute` so they
+   scroll away with the page (NOT persistent/fixed). The captured CSS already
+   provides `.page_container.overlay{position:absolute}` - we just keep the
+   pointer-events handling so links inside remain clickable. */
+.page_container.pointer-events-none { pointer-events: none; }
+.page_container.pointer-events-none a,
+.page_container.pointer-events-none button,
+.page_container.pointer-events-none .page_content { pointer-events: auto; }
+/* Desktop replica: hide mobile-only pinned pages if present */
+.exclude_desktop { display: none !important; }
+
+/* ---- Rebuilt slideshow carousel ---- */
+.local-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    visibility: visible !important;
+}
+.local-carousel .lc-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+.local-carousel .lc-track::-webkit-scrollbar { display: none; }
+.local-carousel .lc-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.local-carousel .lc-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.local-carousel .lc-prev,
+.local-carousel .lc-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px; height: 56px;
+    border: 0;
+    background: rgba(255,255,255,0.55);
+    color: #000;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+.local-carousel:hover .lc-prev,
+.local-carousel:hover .lc-next { opacity: 1; }
+.local-carousel .lc-prev { left: 0; }
+.local-carousel .lc-next { right: 0; }
+.local-carousel .lc-count {
+    position: absolute;
+    bottom: 8px; right: 10px;
+    font-family: "Nitti Grotesk", sans-serif;
+    font-size: 1.2rem;
+    color: rgba(0,0,0,0.6);
+    background: rgba(255,255,255,0.6);
+    padding: 2px 8px;
+    z-index: 5;
+}
