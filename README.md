@@ -7,7 +7,7 @@ Architecture and design portfolio website for Maackia Design.
 Visit: [www.mackiaatlas.com](https://www.mackiaatlas.com)
 
 ## Contact
-- Email: yzhu23@pratt.edu
+- Email: maackia1031@gmail.com
 - Instagram: [@mackiaz_design](https://instagram.com/mackiaz_design)
 
 ## Projects Featured
